@@ -10,7 +10,7 @@
     "purescript",
     "group"
   ],
-  "license": "BSD3",
+  "license": "BSD-3-Clause",
   "homepage": "github.com/vmchale/permutations",
   "ignore": [
     "**/.*",
