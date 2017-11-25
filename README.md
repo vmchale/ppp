@@ -16,7 +16,7 @@ psc-package install permutations
 ### Documentation
 
 You can find documentation
-[here](https://pursuit.purescript.org/packages/permutations/0.1.0).
+[here](https://pursuit.purescript.org/packages/permutations/).
 
 ## Building
 
