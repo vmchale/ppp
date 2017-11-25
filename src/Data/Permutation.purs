@@ -51,11 +51,11 @@ delete n i (Cons 0 p) = Cons 0 (delete (n-1) (i-1) p)
 delete n i (Cons j p) = Cons j (delete (n-1) i p)
 delete _ _ _ = Nil -- shouldn't ever happen
 
-multiply :: Int -> Permutation -> Permutation -> Permutation
-multiply _ Nil p = p
-multiply n (Cons i p) p' = case index (toArray n p') i of
-    Just x -> Cons x (multiply (n-1) p (delete n i p'))
-    Nothing -> Nil -- shouldn't ever happen
+multiply :: Int -> Permutation -> Permutation -> Maybe Permutation
+multiply _ Nil p = Just p
+multiply n (Cons i p) p' = do
+    j <- index (toArray n p') i
+    Cons j <$> (multiply (n-1) p (delete n i p'))
 
 -- | Invert a permutation of a given size.
 invert :: Int -> Permutation -> Permutation

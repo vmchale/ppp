@@ -2,6 +2,7 @@ module Test.Main where
 
 import Prelude
 
+import Data.Maybe (Maybe (..))
 import Test.Unit (suite, test)
 import Test.Unit.Main (runTest)
 import Test.Unit.Assert (assert, equal)
@@ -16,6 +17,6 @@ main = runTest do
       [0, 3, 2, 1] `equal` toArray 4 (pi 4 1 3)
       [2, 1, 0, 3] `equal` toArray 4 (pi 4 0 2)
     test "multiply" do
-      [2, 3, 0, 1] `equal` toArray 4 (multiply 4 (pi 4 1 3) (pi 4 0 2))
+      Just [2, 3, 0, 1] `equal` map (toArray 4) (multiply 4 (pi 4 1 3) (pi 4 0 2))
     test "invert" do
       [0, 1, 2, 3] `equal` toArray 4 (invert 4 (identity 4))
