@@ -3,6 +3,10 @@
   "authors": [
     "Vanessa McHale <vamchale@gmail.com>"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vmchale/ppp.git"
+  },
   "description": "Library for permutations in PureScript",
   "main": "src/Data/Permutation.purs",
   "keywords": [
