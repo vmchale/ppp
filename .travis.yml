@@ -1,0 +1,12 @@
+language: haskell
+before_install:
+  - cabal update
+  - cabal install purescript
+  - git clone https://github.com/purescript/psc-package
+  - cd psc-package/
+  - cabal install
+  - psc-package update
+
+script:
+  - pulp build
+  - pulp install
