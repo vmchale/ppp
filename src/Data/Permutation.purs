@@ -69,6 +69,7 @@ fill :: Int -> Int -> Permutation
 fill n 0 = identity n
 fill n k = Cons 1 (fill (n-1) $ k - 1)
 
+-- | Permutation from a swap.
 pi :: Int -> Int -> Int -> Permutation
 pi n 0 0 = identity n
 pi n 0 k = Cons k (fill (n-1) $ k - 1)
