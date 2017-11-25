@@ -7,8 +7,9 @@ module Data.Permutation ( P (..)
                         ) where
 
 import Prelude
+
 import Data.Array (uncons, (:), index)
-import Data.Maybe
+import Data.Maybe (Maybe(..))
 
 data P n = Nil | Cons n (P n)
 
@@ -56,6 +57,7 @@ multiply n (Cons i p) p' = case index (toArray n p') i of
     Just x -> Cons x (multiply (n-1) p (delete n i p'))
     Nothing -> Nil -- shouldn't ever happen
 
+-- | Invert a permutation of a given size.
 invert :: Int -> Permutation -> Permutation
 invert _ Nil = Nil
 invert n p@(Cons i is) = case index (toArray n p) j of
