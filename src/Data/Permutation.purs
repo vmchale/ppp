@@ -3,6 +3,7 @@ module Data.Permutation ( P (..)
                         , identity
                         , pi
                         , multiply
+                        , invert
                         ) where
 
 import Prelude
@@ -46,10 +47,7 @@ delete :: Int -> Int -> Permutation -> Permutation
 delete _ 0 (Cons j p) = p
 delete 0 _ _ = Nil
 delete n i (Cons 0 p) = Cons 0 (delete (n-1) (i-1) p)
-delete n i (Cons j p) = Cons (damp j) (delete (n-1) i p)
-    where damp :: Int -> Int
-          damp 0 = 0
-          damp n = n - 1
+delete n i (Cons j p) = Cons j (delete (n-1) i p)
 delete _ _ _ = Nil -- shouldn't ever happen
 
 multiply :: Int -> Permutation -> Permutation -> Permutation
@@ -57,6 +55,15 @@ multiply _ Nil p = p
 multiply n (Cons i p) p' = case index (toArray n p') i of
     Just x -> Cons x (multiply (n-1) p (delete n i p'))
     Nothing -> Nil -- shouldn't ever happen
+
+invert :: Int -> Permutation -> Permutation
+invert _ Nil = Nil
+invert n p@(Cons i is) = case index (toArray n p) j of
+    Nothing -> Nil -- should never happen
+    Just x -> Cons x (delete n j p)
+        where j = case index (toArray n p) i of
+                    Just x -> x
+                    Nothing -> 0 -- shouldn't happen
 
 fill :: Int -> Int -> Permutation
 fill n 0 = identity n

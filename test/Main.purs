@@ -17,3 +17,5 @@ main = runTest do
       [2, 1, 0, 3] `equal` toArray 4 (pi 4 0 2)
     test "multiply" do
       [2, 3, 0, 1] `equal` toArray 4 (multiply 4 (pi 4 1 3) (pi 4 0 2))
+    test "invert" do
+      [0, 1, 2, 3] `equal` toArray 4 (invert 4 (identity 4))
