@@ -1,6 +1,6 @@
 # ppp
 
-`ppp` is a library for
+`ppp` is a library for (pleasant)
 [permutations](http://mathworld.wolfram.com/PermutationGroup.html) in
 PureScript. Currently, it is something of a work-in-progress, but it already has
 functions to multiply and invert permutations.
@@ -15,7 +15,8 @@ psc-package install permutations
 
 ## Building
 
-Using [pulp](https://github.com/purescript-contrib/pulp):
+If you'd like to contribute to this library, I'd recommend building with
+[pulp](https://github.com/purescript-contrib/pulp):
 
 ```bash
  $ pulp build

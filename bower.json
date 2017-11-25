@@ -1,0 +1,22 @@
+{
+  "name": "permutations",
+  "authors": [
+    "Vanessa McHale <vamchale@gmail.com>"
+  ],
+  "description": "Library for permutations in PureScript",
+  "main": "src/Data/Permutation.purs",
+  "keywords": [
+    "permutation",
+    "purescript",
+    "group"
+  ],
+  "license": "BSD3",
+  "homepage": "github.com/vmchale/permutations",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
