@@ -10,7 +10,7 @@ functions to multiply and invert permutations.
 To add to your project:
 
 ```bash
-psc-package install permutations
+bower install purescript-permutations
 ```
 
 ### Documentation
