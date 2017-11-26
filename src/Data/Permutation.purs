@@ -5,6 +5,7 @@ module Data.Permutation ( P
                         , multiply
                         , invert
                         , size
+                        , fixNat
                         ) where
 
 import Prelude
@@ -12,7 +13,7 @@ import Prelude
 import Data.Array (uncons, (:), index)
 import Data.Maybe (Maybe(..))
 
-data P n = Nil | Cons n (P n)
+data P n = Zero | Cons n (P n)
 
 infixr 5 Cons as :~
 
@@ -21,16 +22,19 @@ derive instance eqP :: Eq n => Eq (P n)
 type Permutation = P Int
 
 instance showP :: Show (P Int) where
-    show Nil = "Nil"
-    show (Cons x xs) = "(" <> show x <> " :~ " <> show xs <> ")"
+    show Zero = "Zero"
+    show (x :~ xs) = "(" <> show x <> " :~ " <> show xs <> ")"
+
+fixNat :: Int -> Permutation -> Maybe Int
+fixNat i p = flip index i =<< (toArray p)
 
 size :: Permutation -> Int
-size Nil = 0
-size (Cons _ xs) = 1 + size xs
+size Zero = 0
+size (_ :~ xs) = 1 + size xs
 
 identity :: Int -> Permutation
-identity 0 = Nil
-identity n = Cons 0 (identity $ n - 1)
+identity 0 = Zero
+identity n = 0 :~ (identity $ n - 1)
 
 insert :: Int -> Array Int -> Int -> Array Int
 insert def l 0 = def : l
@@ -39,8 +43,8 @@ insert def l k = case uncons l of
     Nothing -> [def]
 
 sigma :: Permutation -> Array Int -> Maybe (Array Int)
-sigma Nil _ = Just []
-sigma (Cons p ps) l = do
+sigma Zero _ = Just []
+sigma (p :~ ps) l = do
     { head: x, tail: xs } <- uncons l
     insert x <$> (sigma ps xs) <*> pure p
 
@@ -58,16 +62,16 @@ delete i (j :~ p) | size p > 0 = Cons j <$> (delete i p)
 delete _ _ = Nothing
 
 multiply :: Int -> Permutation -> Permutation -> Maybe Permutation
-multiply 0 Nil p = Just Nil
-multiply _ Nil _ = Nothing
+multiply 0 Zero p = Just Zero
+multiply _ Zero _ = Nothing
 multiply _ (i :~ p) p' = do
     j <- flip index i =<< (toArray p')
     Cons j <$> (multiply (size p) p =<< (delete i p'))
 
 -- | Invert a permutation of a given size.
 invert :: Int -> Permutation -> Maybe Permutation
-invert 0 Nil = Just Nil
-invert _ Nil = Nothing
+invert 0 Zero = Just Zero
+invert _ Zero = Nothing
 invert n p@(i :~ is) = do
     j <- flip index i =<< (toArray p)
     k <- flip index j =<< (toArray p)
