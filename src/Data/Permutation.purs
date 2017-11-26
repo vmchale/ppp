@@ -30,7 +30,7 @@ fixNat i p = flip index i =<< (toArray p)
 
 size :: Permutation -> Int
 size Zero = 0
-size (_ :~ xs) = 1 + size xs
+size (_:~xs) = 1 + size xs
 
 identity :: Int -> Permutation
 identity 0 = Zero

@@ -1,5 +1,6 @@
-next VERSION:
-    @git tag v{{ VERSION }}
+release:
+    @git commit -am "release"
+    @git tag "$(git tag --list | tail -n1 | awk -F. '{$NF+=1; print $0}' | rg ' ' --replace '.')"
     @bower install
     @pulp publish
 
