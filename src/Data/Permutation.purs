@@ -38,7 +38,7 @@ insert def l k = case uncons l of
 
 sigma :: Permutation -> Array Int -> Maybe (Array Int)
 sigma Nil _ = Just []
-sigma (Cons p ps) [] = Just []
+sigma (Cons p ps) [] = Nothing
 sigma (Cons p ps) l = do
     { head: x, tail: xs } <- uncons l
     insert x <$> (sigma ps xs) <*> pure p
