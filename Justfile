@@ -5,3 +5,6 @@ next VERSION:
 
 test:
     @pulp --psc-package test
+
+build:
+    @pulp --psc-package build
