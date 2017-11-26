@@ -1,10 +1,7 @@
-language: haskell
+language: nix
 before_install:
-  - cabal update
-  - cabal install purescript
-  - git clone https://github.com/purescript/psc-package
-  - cd psc-package/
-  - cabal install
+  - nix-env -i purescript
+  - nix-env -i psc-package
   - psc-package update
 
 script:
