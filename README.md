@@ -24,6 +24,6 @@ If you'd like to contribute to this library, I'd recommend building with
 [pulp](https://github.com/purescript-contrib/pulp):
 
 ```bash
- $ pulp build
- $ pulp test
+ $ pulp --psc-package build
+ $ pulp --psc-package test
 ```
