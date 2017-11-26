@@ -49,20 +49,20 @@ toArray n p = sigma p (sequential n)
           sequential 0 = []
           sequential m = 0 : map (add 1) (sequential $ m - 1)
 
-delete :: Int -> Int -> Permutation -> Maybe Permutation
-delete _ 0 (Cons j p) = Just p
-delete 0 i p | i > 0 = Just Nil
-delete 0 i p | otherwise = Just p
-delete _ i (Cons 0 p) | size p + 1 > 0 = Cons 0 <$> (delete (size p) (i-1) p)
-delete _ i (Cons j p) | size p > 0 = Cons j <$> (delete (size p) i p)
-delete _ _ _ = Nothing
+delete :: Int -> Permutation -> Maybe Permutation
+delete 0 (Cons j p) = Just p
+delete i p | i > 0 && size p == 0 = Just Nil
+delete i p | otherwise && size p == 0 = Just p
+delete i (Cons 0 p) | size p + 1 > 0 = Cons 0 <$> (delete (i-1) p)
+delete i (Cons j p) | size p > 0 = Cons j <$> (delete i p)
+delete _ _ = Nothing
 
 multiply :: Int -> Permutation -> Permutation -> Maybe Permutation
 multiply 0 Nil p = Just p
 multiply _ Nil _ = Nothing
 multiply _ (Cons i p) p' = do
     j <- flip index i =<< (toArray (size p') p')
-    Cons j <$> (multiply (size p) p =<< (delete (size p') i p'))
+    Cons j <$> (multiply (size p) p =<< (delete i p'))
 
 -- | Invert a permutation of a given size.
 invert :: Int -> Permutation -> Maybe Permutation
@@ -71,7 +71,7 @@ invert _ Nil = Nothing
 invert n p@(Cons i is) = do
     j <- flip index i =<< (toArray n p)
     k <- flip index j =<< (toArray n p)
-    Cons k <$> (delete n j p)
+    Cons k <$> (delete j p)
 
 fill :: Int -> Int -> Permutation
 fill n 0 = identity n
